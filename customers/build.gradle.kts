@@ -1,7 +1,11 @@
+import org.gradle.kotlin.dsl.named
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.4.4"
 	id("io.spring.dependency-management") version "1.1.7"
+	id ("com.google.cloud.tools.jib") version "3.4.5"
 }
 
 group = "io.projects"
@@ -39,4 +43,10 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+val imagePrefix = "dineshsnkumar"
+val dockerImageName = "customers"
+tasks.named<BootBuildImage>("bootBuildImage") {
+	imageName.set("${imagePrefix}/${dockerImageName}:${version}")
 }
