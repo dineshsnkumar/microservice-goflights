@@ -1,14 +1,12 @@
 package io.projects.goflights.flights.controllers;
 
 import io.projects.goflights.flights.constants.FlightsConstants;
-import io.projects.goflights.flights.dto.AirlineDTO;
-import io.projects.goflights.flights.dto.FlightRequestDTO;
-import io.projects.goflights.flights.dto.FlightResponseDTO;
-import io.projects.goflights.flights.dto.ResponseDTO;
+import io.projects.goflights.flights.dto.*;
 import io.projects.goflights.flights.service.AirlineService;
 import io.projects.goflights.flights.service.FlightService;
 import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +15,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/flights")
-@AllArgsConstructor
 public class FlightsController {
 
     private AirlineService airlineService;
     private FlightService flightService;
+
+    public FlightsController(FlightService flightService, AirlineService airlineService) {
+        this.flightService = flightService;
+        this.airlineService = airlineService;
+    }
+
+    @Autowired
+    private FlightsInfoDTO flightsInfoDTO;
 
     @GetMapping
     public ResponseEntity<List<FlightResponseDTO>> getAllFlights(){
@@ -51,5 +56,10 @@ public class FlightsController {
     public ResponseEntity<ResponseDTO> saveAirline(@RequestBody AirlineDTO airlineDTO){
         airlineService.saveAirline(airlineDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDTO(FlightsConstants.MESSAGE_200, FlightsConstants.STATUS_200));
+    }
+
+    @GetMapping("/flight-info")
+    public ResponseEntity<FlightsInfoDTO> flightInfo(){
+        return ResponseEntity.status(HttpStatus.OK).body(flightsInfoDTO);
     }
 }

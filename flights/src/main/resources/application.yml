@@ -13,3 +13,12 @@ spring:
     hibernate:
       ddl-auto: update
       show-sql: truespring.application.name=flights
+
+
+flights:
+  message: "Flights microservice for GoFlights"
+  contact:
+    name: "Will Wright"
+    email: "wrightbrothers@info.com"
+  phoneNumber:
+    - (111)-234-1456
