@@ -11,3 +11,18 @@ spring:
     hibernate:
       ddl-auto: update
       show-sql: true
+  config:
+    import:
+      - "application_prod.yml"
+      - "application_qa.yml"
+  profiles:
+    active:
+      - "qa"
+
+customers:
+  message: "Customers Microservice for GoFlights Local Env"
+  contact:
+    name : "Will Wright"
+    email: "wrightbrothers@goflights.io"
+  phoneNumber:
+    - (111)-234-5678

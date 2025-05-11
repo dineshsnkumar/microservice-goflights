@@ -1,11 +1,13 @@
 package io.projects.goflights.customers.controllers;
 
 import io.projects.goflights.customers.constants.CustomerConstants;
+import io.projects.goflights.customers.dto.CustomerInfoDTO;
 import io.projects.goflights.customers.dto.ResponseDTO;
 import io.projects.goflights.customers.dto.CustomerDTO;
 import io.projects.goflights.customers.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,11 +15,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customers")
-@AllArgsConstructor
 @Validated
 public class CustomerController {
 
     private CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    @Autowired
+    private CustomerInfoDTO customerInfoDTO;
 
     @GetMapping("")
     public String users(){
@@ -49,5 +57,11 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_200, CustomerConstants.MESSAGE_200));
     }
 
+    @GetMapping("/customer-info")
+    public ResponseEntity<CustomerInfoDTO> customerInfo(){
+        return ResponseEntity.status(HttpStatus.OK).body(customerInfoDTO);
+
+
+    }
 
 }

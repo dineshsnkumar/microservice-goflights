@@ -13,12 +13,21 @@ spring:
     hibernate:
       ddl-auto: update
       show-sql: truespring.application.name=flights
+  config:
+    import:
+      - "application_prod.yml"
+      - "application_qa.yml"
+  profiles:
+    active:
+      - "qa"
+
+
 
 
 flights:
-  message: "Flights microservice for GoFlights"
+  message: "Flights microservice for GoFlights in DEV"
   contact:
     name: "Will Wright"
-    email: "wrightbrothers@info.com"
+    email: "wrightbrothers@goflights.io"
   phoneNumber:
     - (111)-234-1456
