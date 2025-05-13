@@ -1,0 +1,7 @@
+flights:
+  message: "Flights microservice for GoFlights in DEV"
+  contact:
+    name: "Will Wright"
+    email: "wrightbrothers@goflights.io"
+  phoneNumber:
+    - (111)-234-1456

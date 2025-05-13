@@ -1,0 +1,7 @@
+customers:
+  message: "Customers Microservice for GoFlights Local Env"
+  contact:
+    name : "Will Wright"
+    email: "wrightbrothers@goflights.io"
+  phoneNumber:
+    - (111)-234-5678

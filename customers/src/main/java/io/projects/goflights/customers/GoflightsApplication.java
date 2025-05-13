@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
-@EnableConfigurationProperties(value = CustomerInfoDTO.class)
+@EnableConfigurationProperties(value = {CustomerInfoDTO.class})
 public class GoflightsApplication {
 
 	public static void main(String[] args) {

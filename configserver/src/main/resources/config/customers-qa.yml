@@ -1,9 +1,3 @@
-spring:
-  config:
-    activate:
-      on-profile: "qa"
-
-
 customers:
   message: "Customers microservice for GoFlights in QA"
   contact:
