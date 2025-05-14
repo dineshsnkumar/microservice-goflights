@@ -2,12 +2,18 @@ spring:
   application:
     name: "configserver"
   profiles:
-    active: native
+    active: git
+#    active: native
   cloud:
     config:
       server:
-        native:
-          search-locations: "classpath:/config"
+        git:
+          uri: "https://github.com/dineshsnkumar/microservice-goflights-config.git"
+          default-label: main
+          timeout: 10
+          clone-on-start: true
+#        native:
+#          search-locations: "classpath:/config"
 
 
 server:
