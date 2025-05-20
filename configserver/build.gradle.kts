@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.named
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.4.5"
@@ -5,7 +8,7 @@ plugins {
 }
 
 group = "io.projects"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 
 java {
 	toolchain {
@@ -36,4 +39,10 @@ dependencyManagement {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+val imagePrefix = "dineshsnkumar"
+val dockerImageName = "configserver"
+tasks.named<BootBuildImage>("bootBuildImage") {
+	imageName.set("${imagePrefix}/${dockerImageName}:${version}")
 }

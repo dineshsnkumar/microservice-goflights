@@ -2,8 +2,8 @@ spring:
   application:
     name: "configserver"
   profiles:
-    active: git
-#    active: native
+#    active: git
+    active: native
   cloud:
     config:
       server:
@@ -12,8 +12,8 @@ spring:
           default-label: main
           timeout: 10
           clone-on-start: true
-#        native:
-#          search-locations: "classpath:/config"
+        native:
+          search-locations: "classpath:/config"
     rabbitmq:
       host: "localhost"
       port: 5672
