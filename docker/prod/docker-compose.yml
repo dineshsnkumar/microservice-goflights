@@ -1,37 +1,20 @@
 services:
-#  rabbitmq:
-#    image: rabbitmq:3.13-management
-#    hostname: rabbitmq
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#    healthcheck:
-#      test: rabbitmq-diagnostics check_port_connectivity
-#      interval: 10s
-#      timeout: 5s
-#      retries: 10
-#      start_period: 5s
-#    networks:
-#      - goflights
-#    environment:
-#      SPRING_RABBITMQ_HOST: "rabbitmq"
-  customersdb:
-    container_name: 'mysql'
-    image: 'mysql:latest'
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      test: rabbitmq-diagnostics check_port_connectivity
       interval: 10s
       timeout: 5s
       retries: 10
-      start_period: 10s
+      start_period: 5s
     networks:
       - goflights
     environment:
-      MYSQL_DATABASE: customersdb
-      MYSQL_PASSWORD: root
-    ports:
-      - '3306:3306'
-
+      SPRING_RABBITMQ_HOST: "rabbitmq"
   configserver:
     image: "dineshsnkumar/configserver:0.0.2-SNAPSHOT"
     container_name: configserver-ms
@@ -52,8 +35,6 @@ services:
           memory: 700m
     networks:
       - goflights
-
-
   flights:
     image: "dineshsnkumar/flights:0.0.2-SNAPSHOT"
     container_name: flights-ms
@@ -72,8 +53,6 @@ services:
       SPRING_APPLICATION_NAME: "flights"
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
       SPRING_PROFILES_ACTIVE: default
-
-
   customers:
     image: "dineshsnkumar/customers:0.0.2-SNAPSHOT"
     container_name: customers-ms

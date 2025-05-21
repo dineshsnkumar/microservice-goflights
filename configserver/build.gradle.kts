@@ -25,8 +25,8 @@ extra["springCloudVersion"] = "2024.0.1"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.cloud:spring-cloud-config-server")
-	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp:4.2.1")
-	runtimeOnly("org.springframework.cloud:spring-cloud-config-monitor:4.1.3")
+//	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp:4.2.1")
+//	runtimeOnly("org.springframework.cloud:spring-cloud-config-monitor:4.1.3")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
