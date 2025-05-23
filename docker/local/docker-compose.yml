@@ -16,24 +16,28 @@ services:
 #    environment:
 #      SPRING_RABBITMQ_HOST: "rabbitmq"
   customersdb:
-    container_name: 'mysql'
-    image: 'mysql:latest'
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
-    networks:
-      - goflights
-    environment:
-      MYSQL_DATABASE: customersdb
-      MYSQL_PASSWORD: root
+    container_name: 'customersdb'
     ports:
-      - '3306:3306'
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "customersdb"
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
+  flightsdb:
+    container_name: 'flightsdb'
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: "flightsdb"
+    extends:
+      file: common-config.yml
+      service: microservice-db-config
+
 
   configserver:
-    image: "dineshsnkumar/configserver:0.0.2-SNAPSHOT"
+    image: "dineshsnkumar/configserver:0.0.3-SNAPSHOT"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -43,55 +47,45 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - goflights
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
 
 
   flights:
-    image: "dineshsnkumar/flights:0.0.2-SNAPSHOT"
+    image: "dineshsnkumar/flights:0.0.3-SNAPSHOT"
     container_name: flights-ms
     ports:
       - "9000:9000"
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    depends_on:
-      configserver:
-        condition: service_healthy
-    networks:
-      - goflights
     environment:
       SPRING_APPLICATION_NAME: "flights"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+      SPRING_DATASOURCE_URL: "jdbc:mysql://flightsdb:3307/flightsdb"
+    depends_on:
+      flightsdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
 
 
   customers:
-    image: "dineshsnkumar/customers:0.0.2-SNAPSHOT"
+    image: "dineshsnkumar/customers:0.0.3-SNAPSHOT"
     container_name: customers-ms
     ports:
       - "8080:8080"
-    depends_on:
-      configserver:
-        condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-    networks:
-      - goflights
     environment:
       SPRING_APPLICATION_NAME: "customers"
-      SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
-      SPRING_PROFILES_ACTIVE: default
+      SPRING_DATASOURCE_URL: "jdbc:mysql://customersdb:3306/customersdb"
+    depends_on:
+      customersdb:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
 
 networks:
   goflights:
