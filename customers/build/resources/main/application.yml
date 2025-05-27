@@ -29,9 +29,7 @@ management:
   endpoint:
     shutdown:
       access: unrestricted
-    info:
-      env:
-        enabled: true
+
 
 eureka:
   instance:
@@ -43,8 +41,3 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8070/eureka/
 
-info:
-  app:
-    name: "customers"
-    description: "customers microservice for GoFlights Application"
-    version: "1.0.0"

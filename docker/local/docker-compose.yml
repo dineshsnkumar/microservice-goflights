@@ -1,20 +1,4 @@
 services:
-#  rabbitmq:
-#    image: rabbitmq:3.13-management
-#    hostname: rabbitmq
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#    healthcheck:
-#      test: rabbitmq-diagnostics check_port_connectivity
-#      interval: 10s
-#      timeout: 5s
-#      retries: 10
-#      start_period: 5s
-#    networks:
-#      - goflights
-#    environment:
-#      SPRING_RABBITMQ_HOST: "rabbitmq"
   customersdb:
     container_name: 'customersdb'
     ports:
@@ -51,6 +35,27 @@ services:
     networks:
       - goflights
 
+  eurekaserver:
+    image: "dineshsnkumar/eurekaserver:0.0.1-SNAPSHOT"
+    container_name: eurekaserver-ms
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - goflights
+    depends_on:
+      configserver:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
 
   flights:
     image: "dineshsnkumar/flights:0.0.3-SNAPSHOT"
@@ -67,7 +72,7 @@ services:
         condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
 
   customers:
@@ -85,7 +90,7 @@ services:
         condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
 networks:
   goflights:
