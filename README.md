@@ -13,6 +13,7 @@
 - It uses H2 and MySQL databases 
 - Spring Cloud Config along with RabbitMQ is used to manage configurations related to microservices in local, QA and PROD env
 - Eureka is used for service discovery and registration
+- RabbitMQ is used for pub/sub and Kafka for event streaming to send notifications to users
 - Docker compose is used to build the env
 
 
@@ -20,7 +21,6 @@
 
 - Add Observability and Monitoring
 - Spring Security -> OAuth, JWT
-- Add kafka for Event Driven Messaging 
 - Convert the entire project to use K8s 
 - Add Elasticsearch to the project for keyword lookup
 - Implement SAGA design patterns for transactions 
