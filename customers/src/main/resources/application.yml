@@ -16,6 +16,12 @@ spring:
   profiles:
     active:
       - "prod"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10
   config:
     import: "optional:configserver:http://localhost:8071/"
 

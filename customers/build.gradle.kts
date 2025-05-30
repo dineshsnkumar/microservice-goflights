@@ -38,6 +38,8 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+	implementation("org.springframework.cloud:spring-cloud-stream")
+	implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit:3.2.4")
 
 //	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp:4.2.1")
 	compileOnly("org.projectlombok:lombok")
