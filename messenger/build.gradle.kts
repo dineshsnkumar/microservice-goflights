@@ -23,9 +23,8 @@ extra["springCloudVersion"] = "2025.0.0-RC1"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.cloud:spring-cloud-stream")
-	implementation("org.springframework.amqp:spring-rabbit-stream")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit:3.2.4")
+	implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit:4.1.5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

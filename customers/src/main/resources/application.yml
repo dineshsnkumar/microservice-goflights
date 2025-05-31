@@ -16,6 +16,12 @@ spring:
   profiles:
     active:
       - "prod"
+  cloud:
+    stream:
+      bindings:
+        email-out-0:
+          destination: email-topic
+          group: ${spring.application.name}
   rabbitmq:
     host: localhost
     port: 5672
