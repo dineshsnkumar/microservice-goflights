@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: "apigateway"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lowerCaseServiceId: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+
+info:
+  app:
+    name: "api-gateway"
+    description: "Go Flights API Gateway"
+
+
+
+
