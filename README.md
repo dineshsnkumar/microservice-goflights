@@ -25,3 +25,7 @@
 - Convert the entire project to use K8s 
 - Add Elasticsearch to the project for keyword lookup
 - Implement SAGA design patterns for transactions 
+
+### TODO
+- [ ] Fix bugs related to docker-compose builds in different environment
+- [ ] Create services for api-gateway in docker-compose
