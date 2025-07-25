@@ -1,3 +1,6 @@
+server:
+  port: 8075
+
 customers:
   message: "Customers Microservice for GoFlights Local Env"
   contact:

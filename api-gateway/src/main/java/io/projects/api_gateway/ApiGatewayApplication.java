@@ -18,7 +18,7 @@ public class ApiGatewayApplication {
         return routeLocatorBuilder.routes()
                 .route(p -> p.path("/goflights/customers/**")
                         .filters(f -> f.rewritePath("/goflights/customers/(?<segment>.*)", "/${segment}")
-                                .circuitBreaker(config -> config.setName("customersCircuitBreaker")))
+                                .circuitBreaker(config -> config.setName("customersCircuitBreaker").setFallbackUri("forward:/contact")))
                         .uri("lb:CUSTOMERS")).build();
     }
 }
