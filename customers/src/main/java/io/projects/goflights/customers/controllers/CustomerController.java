@@ -1,5 +1,6 @@
 package io.projects.goflights.customers.controllers;
 
+import io.github.resilience4j.retry.annotation.Retry;
 import io.projects.goflights.customers.constants.CustomerConstants;
 import io.projects.goflights.customers.dto.CustomerInfoDTO;
 import io.projects.goflights.customers.dto.ResponseDTO;
@@ -57,11 +58,14 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(CustomerConstants.STATUS_200, CustomerConstants.MESSAGE_200));
     }
 
+    @Retry(name = "customerInfo", fallbackMethod = "customerInfoFallback")
     @GetMapping("/customer-info")
     public ResponseEntity<CustomerInfoDTO> customerInfo(){
         return ResponseEntity.status(HttpStatus.OK).body(customerInfoDTO);
+    }
 
-
+    public ResponseEntity<CustomerInfoDTO> customerInfoFallback(){
+        return ResponseEntity.status(HttpStatus.OK).body(new CustomerInfoDTO());
     }
 
 }
