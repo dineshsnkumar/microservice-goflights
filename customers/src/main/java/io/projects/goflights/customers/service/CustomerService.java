@@ -31,7 +31,7 @@ public class CustomerService {
             throw new CustomerAlreadyExistsException("Customer with mobile number "+ customerDTO.getMobileNumber() + " already exists" );
         }
        Customer customerSaved= customerRepository.save(customer);
-        sendEmailNotification(customerSaved);
+//        sendEmailNotification(customerSaved);
     }
 
     public CustomerDTO findCustomerByMobileNumber(String mobileNumber){
@@ -63,10 +63,10 @@ public class CustomerService {
         customerRepository.delete(customer);
     }
 
-    public void sendEmailNotification(Customer customer){
-        var cutomerDto = new CustomerDetailsDTO(customer.getCustomerId(), customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getMobileNumber());
-        LOGGER.info("Sending customerDetailsDTO to Email Notification {}",  cutomerDto);
-        var sendEmail = streamBridge.send("email-topic", cutomerDto);
-    }
+//    public void sendEmailNotification(Customer customer){
+//        var cutomerDto = new CustomerDetailsDTO(customer.getCustomerId(), customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getMobileNumber());
+//        LOGGER.info("Sending customerDetailsDTO to Email Notification {}",  cutomerDto);
+//        var sendEmail = streamBridge.send("email-topic", cutomerDto);
+//    }
 
 }
